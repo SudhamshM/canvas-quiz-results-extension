@@ -1,7 +1,10 @@
 'use strict';
 let answer_array = []
+let score_array = []
 let badgeCount = ''
+let quizTitle = ''
 function myMain() {
+    quizTitle = document.querySelector('h1').textContent.trim();
     const question_area = document.querySelectorAll('.display_question.question');
     let count = 1
     question_area.forEach(function (question) {
@@ -69,6 +72,11 @@ function myMain() {
             answer_array.push([found])
         }
         count++;
+        // get question score
+        const studentScore = question.querySelector('.user_points').firstChild.textContent.trim();
+        const questionWorth = question.querySelector('.question_points').textContent.trim();
+        let scoreDisplay = studentScore + " " + questionWorth + " pts"
+        score_array.push([scoreDisplay]);
     })
     badgeCount += answer_array.length;
 
@@ -91,6 +99,12 @@ function myMain() {
         answer_array.push(innerArray)
     }
     console.log(answer_array);
+    console.log(score_array)
+    /**
+     * $0 = .header
+     *  $0.querySelector('.user_points').firstChild.textContent.trim() + $0.querySelector('.question_points').textContent + " " + $0.querySelector('.question_points').nextSibling.textContent.trim();
+     */
+    navigator.clipboard.writeText(answer_array);
     // iterate over array of arrays to print answers
     // const headingArea = document.getElementById('quiz_student_details')
     // const answerDiv = document.createElement('div')
@@ -139,6 +153,9 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
             // inputs: document.querySelectorAll('input').length,
             // buttons: document.querySelectorAll('button').length,
             your_array: answer_array,
+            scores: score_array,
+            title: quizTitle,
+
         };
 
         // Directly respond to the sender (popup), 
