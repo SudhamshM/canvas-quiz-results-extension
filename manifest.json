@@ -15,7 +15,7 @@
                 "scripts/content.js"
             ],
             "matches": [
-                "*://*.instructure.com/courses/*/quizzes/*"
+                "https://*.instructure.com/courses/*/quizzes/*"
             ]
         }
     ],

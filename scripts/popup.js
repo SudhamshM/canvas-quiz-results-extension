@@ -3,8 +3,22 @@
 const setDOMInfo = info => {
     document.querySelector('h1 span').textContent = info.your_array.length;
     document.querySelector('h1').textContent = "Questions: " + info.your_array.length;
-
+    const clipboardButton = document.createElement('button')
+    clipboardButton.textContent = 'Copy'
+    clipboardButton.className = 'btn btn-sm btn-primary ms-1'
+    clipboardButton.onclick=function()
+    {
+      let textToCopy = info.your_array;
+      navigator.clipboard.writeText(textToCopy);
+      clipboardButton.textContent = 'Copied!';
+      setInterval(function()
+      {
+        clipboardButton.textContent = 'Copy'
+      }, 1000)
+    }
+    
     const headingArea = document.querySelector('h1');
+    headingArea.appendChild(clipboardButton);
     const answerDiv = document.createElement('div');
     const baseUL = document.createElement('ul')
     baseUL.className = 'list-group list-group-flush'
