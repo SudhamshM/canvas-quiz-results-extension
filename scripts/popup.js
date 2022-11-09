@@ -6,7 +6,8 @@ const setDOMInfo = info => {
     document.querySelector('h2').style.fontSize = '0.9em';
     document.querySelector('.kept-score').textContent = "Kept Score: " + info.kept;
     document.querySelector('.current-score').textContent = "Current Score: " + info.current;
-    document.querySelector('.current-score').style.width = '100px';
+    document.querySelector('.current-score').style.width = '120px';
+    document.querySelector('.kept-score').style.width = '110px';
     const clipboardButton = document.createElement('button')
     clipboardButton.textContent = 'Copy'
     clipboardButton.className = 'btn btn-sm btn-primary ms-1'
