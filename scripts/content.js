@@ -1,12 +1,29 @@
 'use strict';
-let answer_array = []
-let score_array = []
-let badgeCount = ''
-let quizTitle = ''
+let answer_array = [];
+let score_array = [];
+let badgeCount = '';
+let quizTitle = '';
+let currentScore = '';
+let keptScore = '';
 function myMain() {
     quizTitle = document.querySelector('h1').textContent.trim();
     const question_area = document.querySelectorAll('.display_question.question');
-    let count = 1
+    let count = 1;
+    // get score summary
+    const summaryRows = document.querySelectorAll('.summary tbody tr');
+    summaryRows.forEach(row => 
+        {
+            if (row.querySelector('th').textContent.trim() === 'Current Score:')
+            {
+                currentScore = (row.querySelector('td').textContent.trim().substring(0, row.querySelector('td').textContent.length))
+            }
+            else if (row.querySelector('th').textContent.trim() === 'Kept Score:')
+            {
+                keptScore = (row.querySelector('td').textContent.trim().substring(0, row.querySelector('td').textContent.length))
+            }
+        });
+
+
     question_area.forEach(function (question) {
         if (question.classList.contains('text_only_question')) {
             //skip
@@ -155,6 +172,8 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
             your_array: answer_array,
             scores: score_array,
             title: quizTitle,
+            current: currentScore,
+            kept: keptScore,
 
         };
 
